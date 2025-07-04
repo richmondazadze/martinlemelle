@@ -136,11 +136,7 @@
   box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
 }
 
-.form-group input:invalid,
-.form-group select:invalid,
-.form-group textarea:invalid {
-  border-color: #ef4444;
-}
+
 
 .form-group textarea {
   resize: vertical;
