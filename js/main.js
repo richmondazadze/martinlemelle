@@ -377,16 +377,10 @@ function debounce(func, wait) {
 
 // Performance optimization
 window.addEventListener('scroll', debounce(function() {
-    // Throttled scroll events
+    // Throttled scroll events - hero image is now fixed
     const scrollY = window.scrollY;
     
-    // Parallax effect for hero image
-    const heroImage = document.querySelector('.hero-image');
-    if (heroImage) {
-        const parallaxSpeed = 0.5;
-        const yPos = -(scrollY * parallaxSpeed);
-        heroImage.style.transform = `translateY(${yPos}px)`;
-    }
+    // Add any other scroll-based animations here
 }, 16)); // ~60fps
 
 // Error handling
