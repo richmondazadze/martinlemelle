@@ -1,16 +1,40 @@
 
-Images directory - add the following images:
-- hero-portrait.jpg (Dr. Lemelle's hero portrait)
-- about-portrait.jpg (Dr. Lemelle's about section portrait)
-- gallery1.jpg through gallery4.jpg (gallery images)
-- video-thumb1.jpg and video-thumb2.jpg (video thumbnails)
-- favicon.ico (website favicon)
+# Image Placeholders
 
-Image specifications:
-- Hero portrait: 1920x1080px, high quality, professional
-- About portrait: 800x600px, office setting
-- Gallery images: 600x400px each
-- Video thumbnails: 480x270px each
-- Favicon: 32x32px, transparent background
+This directory should contain the following images for the website:
 
-All images should be optimized for web (under 500KB each) and use progressive JPEG format where applicable.
+## Required Images:
+
+1. **logo.png** - University/Dr. Lemelle logo for navigation (transparent background)
+2. **logo-white.png** - White version of logo for footer
+3. **hero-portrait.jpg** - Large hero image of Dr. Lemelle (1920x1080 or higher)
+4. **about-portrait.jpg** - Professional portrait for about page (800x600)
+5. **profile-formal.jpg** - Formal headshot for bio sidebar (400x400)
+
+## Image Guidelines:
+
+- **Format**: Use JPG for photographs, PNG for logos/graphics with transparency
+- **Quality**: High resolution, professional photography
+- **Optimization**: Compress images for web (under 500KB each)
+- **Accessibility**: Ensure good contrast and clear subject matter
+
+## Suggested Image Sources:
+
+- Professional university photography
+- Official presidential portraits
+- High-quality stock photography as placeholders
+- Images should reflect professionalism and academic excellence
+
+## Placeholder Sources:
+
+Until actual images are available, you can use:
+- https://via.placeholder.com/1920x1080/1B365D/FFD700?text=Dr.+Lemelle
+- https://via.placeholder.com/800x600/1B365D/FFD700?text=Portrait
+- https://via.placeholder.com/400x400/1B365D/FFD700?text=Profile
+
+## Color Scheme for Images:
+
+- Primary: Navy Blue (#1B365D)
+- Secondary: Gold (#B8860B)
+- Accent: Light Gold (#F4E4A6)
+- Background: White (#FFFFFF)

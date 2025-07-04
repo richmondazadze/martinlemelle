@@ -1,565 +1,431 @@
+// Utility Functions
 
-// Utility functions and helpers
-class Utils {
-    // DOM manipulation utilities
-    static createElement(tag, className, content) {
+// Device detection
+const DeviceUtils = {
+    isMobile: () => window.innerWidth <= 768,
+    isTablet: () => window.innerWidth > 768 && window.innerWidth <= 1024,
+    isDesktop: () => window.innerWidth > 1024,
+
+    // Touch device detection
+    isTouch: () => 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+
+    // Browser detection
+    getBrowser: () => {
+        const userAgent = navigator.userAgent;
+        if (userAgent.includes('Chrome')) return 'chrome';
+        if (userAgent.includes('Firefox')) return 'firefox';
+        if (userAgent.includes('Safari')) return 'safari';
+        if (userAgent.includes('Edge')) return 'edge';
+        return 'unknown';
+    }
+};
+
+// Local Storage utilities
+const StorageUtils = {
+    set: (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error('Storage set error:', error);
+            return false;
+        }
+    },
+
+    get: (key, defaultValue = null) => {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : defaultValue;
+        } catch (error) {
+            console.error('Storage get error:', error);
+            return defaultValue;
+        }
+    },
+
+    remove: (key) => {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch (error) {
+            console.error('Storage remove error:', error);
+            return false;
+        }
+    },
+
+    clear: () => {
+        try {
+            localStorage.clear();
+            return true;
+        } catch (error) {
+            console.error('Storage clear error:', error);
+            return false;
+        }
+    }
+};
+
+// URL utilities
+const UrlUtils = {
+    getParams: () => new URLSearchParams(window.location.search),
+
+    getParam: (name, defaultValue = null) => {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name) || defaultValue;
+    },
+
+    setParam: (name, value) => {
+        const url = new URL(window.location);
+        url.searchParams.set(name, value);
+        history.pushState({}, '', url);
+    },
+
+    removeParam: (name) => {
+        const url = new URL(window.location);
+        url.searchParams.delete(name);
+        history.pushState({}, '', url);
+    }
+};
+
+// Validation utilities
+const ValidationUtils = {
+    email: (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    },
+
+    phone: (phone) => {
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+        return phoneRegex.test(phone.replace(/\D/g, ''));
+    },
+
+    name: (name) => {
+        return name.trim().length >= 2 && /^[a-zA-Z\s'-]+$/.test(name);
+    },
+
+    required: (value) => {
+        return value && value.toString().trim().length > 0;
+    },
+
+    minLength: (value, min) => {
+        return value && value.toString().trim().length >= min;
+    },
+
+    maxLength: (value, max) => {
+        return !value || value.toString().trim().length <= max;
+    }
+};
+
+// Date utilities
+const DateUtils = {
+    format: (date, format = 'MM/DD/YYYY') => {
+        const d = new Date(date);
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const year = d.getFullYear();
+
+        return format
+            .replace('MM', month)
+            .replace('DD', day)
+            .replace('YYYY', year);
+    },
+
+    timeAgo: (date) => {
+        const now = new Date();
+        const diff = now - new Date(date);
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        return 'Just now';
+    }
+};
+
+// DOM utilities
+const DomUtils = {
+    createElement: (tag, attributes = {}, children = []) => {
         const element = document.createElement(tag);
-        if (className) element.className = className;
-        if (content) element.textContent = content;
+
+        Object.entries(attributes).forEach(([key, value]) => {
+            if (key === 'className') {
+                element.className = value;
+            } else if (key === 'dataset') {
+                Object.entries(value).forEach(([dataKey, dataValue]) => {
+                    element.dataset[dataKey] = dataValue;
+                });
+            } else {
+                element.setAttribute(key, value);
+            }
+        });
+
+        children.forEach(child => {
+            if (typeof child === 'string') {
+                element.appendChild(document.createTextNode(child));
+            } else {
+                element.appendChild(child);
+            }
+        });
+
         return element;
-    }
-    
-    static query(selector, context = document) {
-        return context.querySelector(selector);
-    }
-    
-    static queryAll(selector, context = document) {
-        return context.querySelectorAll(selector);
-    }
-    
-    static addClass(element, className) {
+    },
+
+    addClass: (element, className) => {
         if (element && className) {
             element.classList.add(className);
         }
-    }
-    
-    static removeClass(element, className) {
+    },
+
+    removeClass: (element, className) => {
         if (element && className) {
             element.classList.remove(className);
         }
-    }
-    
-    static toggleClass(element, className) {
+    },
+
+    toggleClass: (element, className) => {
         if (element && className) {
             element.classList.toggle(className);
         }
+    },
+
+    hasClass: (element, className) => {
+        return element && className && element.classList.contains(className);
     }
-    
-    static hasClass(element, className) {
-        return element && element.classList.contains(className);
-    }
-    
-    // Event handling utilities
-    static on(element, event, handler, options = {}) {
-        if (element && event && handler) {
-            element.addEventListener(event, handler, options);
+};
+
+// Animation utilities
+const AnimationUtils = {
+    fadeIn: (element, duration = 300) => {
+        if (!element) return;
+
+        element.style.opacity = '0';
+        element.style.display = 'block';
+
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            element.style.opacity = progress;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
         }
-    }
-    
-    static off(element, event, handler) {
-        if (element && event && handler) {
-            element.removeEventListener(event, handler);
+
+        requestAnimationFrame(animate);
+    },
+
+    fadeOut: (element, duration = 300) => {
+        if (!element) return;
+
+        const startOpacity = parseFloat(window.getComputedStyle(element).opacity);
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            element.style.opacity = startOpacity * (1 - progress);
+
+            if (progress >= 1) {
+                element.style.display = 'none';
+            } else {
+                requestAnimationFrame(animate);
+            }
         }
-    }
-    
-    static once(element, event, handler) {
-        if (element && event && handler) {
-            element.addEventListener(event, handler, { once: true });
+
+        requestAnimationFrame(animate);
+    },
+
+    slideDown: (element, duration = 300) => {
+        if (!element) return;
+
+        element.style.display = 'block';
+        element.style.height = '0';
+        element.style.overflow = 'hidden';
+
+        const targetHeight = element.scrollHeight;
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            element.style.height = `${targetHeight * progress}px`;
+
+            if (progress >= 1) {
+                element.style.height = 'auto';
+                element.style.overflow = 'visible';
+            } else {
+                requestAnimationFrame(animate);
+            }
         }
-    }
-    
-    static delegate(parent, selector, event, handler) {
-        if (parent && selector && event && handler) {
-            parent.addEventListener(event, function(e) {
-                if (e.target.matches(selector)) {
-                    handler.call(e.target, e);
-                }
-            });
+
+        requestAnimationFrame(animate);
+    },
+
+    slideUp: (element, duration = 300) => {
+        if (!element) return;
+
+        const startHeight = element.offsetHeight;
+        const startTime = performance.now();
+
+        element.style.overflow = 'hidden';
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            element.style.height = `${startHeight * (1 - progress)}px`;
+
+            if (progress >= 1) {
+                element.style.display = 'none';
+                element.style.height = 'auto';
+                element.style.overflow = 'visible';
+            } else {
+                requestAnimationFrame(animate);
+            }
         }
+
+        requestAnimationFrame(animate);
     }
-    
-    // Throttle and debounce utilities
-    static throttle(func, limit) {
+};
+
+// Performance utilities
+const PerformanceUtils = {
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+
+    throttle: (func, limit) => {
         let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
+        return function(...args) {
             if (!inThrottle) {
-                func.apply(context, args);
+                func.apply(this, args);
                 inThrottle = true;
                 setTimeout(() => inThrottle = false, limit);
             }
         };
-    }
-    
-    static debounce(func, wait, immediate) {
-        let timeout;
-        return function() {
-            const context = this;
-            const args = arguments;
-            const later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            const callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    }
-    
-    // Animation utilities
-    static fadeIn(element, duration = 300) {
-        if (!element) return;
-        
-        element.style.opacity = '0';
-        element.style.display = 'block';
-        
+    },
+
+    measurePerformance: (name, func) => {
         const start = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - start;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            element.style.opacity = progress;
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-        
-        requestAnimationFrame(animate);
+        const result = func();
+        const end = performance.now();
+        console.log(`${name} took ${end - start} milliseconds`);
+        return result;
     }
-    
-    static fadeOut(element, duration = 300) {
-        if (!element) return;
-        
-        const start = performance.now();
-        const initialOpacity = parseFloat(getComputedStyle(element).opacity);
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - start;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            element.style.opacity = initialOpacity * (1 - progress);
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                element.style.display = 'none';
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    }
-    
-    static slideDown(element, duration = 300) {
-        if (!element) return;
-        
-        element.style.display = 'block';
-        element.style.height = '0';
-        element.style.overflow = 'hidden';
-        
-        const fullHeight = element.scrollHeight;
-        const start = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - start;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            element.style.height = `${fullHeight * progress}px`;
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                element.style.height = 'auto';
-                element.style.overflow = 'visible';
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    }
-    
-    static slideUp(element, duration = 300) {
-        if (!element) return;
-        
-        const fullHeight = element.scrollHeight;
-        element.style.height = `${fullHeight}px`;
-        element.style.overflow = 'hidden';
-        
-        const start = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - start;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            element.style.height = `${fullHeight * (1 - progress)}px`;
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                element.style.display = 'none';
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    }
-    
-    // Validation utilities
-    static isEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-    
-    static isPhone(phone) {
-        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-        return phoneRegex.test(phone.replace(/\s/g, ''));
-    }
-    
-    static isNotEmpty(value) {
-        return value && value.trim().length > 0;
-    }
-    
-    static isMinLength(value, minLength) {
-        return value && value.length >= minLength;
-    }
-    
-    static isMaxLength(value, maxLength) {
-        return value && value.length <= maxLength;
-    }
-    
-    // URL utilities
-    static getUrlParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
-    
-    static setUrlParam(param, value) {
-        const url = new URL(window.location.href);
-        url.searchParams.set(param, value);
-        window.history.replaceState({}, '', url);
-    }
-    
-    static removeUrlParam(param) {
-        const url = new URL(window.location.href);
-        url.searchParams.delete(param);
-        window.history.replaceState({}, '', url);
-    }
-    
-    // Local storage utilities
-    static setStorage(key, value) {
-        try {
-            localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-            console.error('Error setting localStorage:', e);
+};
+
+// Analytics utilities
+const AnalyticsUtils = {
+    trackPageView: (page) => {
+        // Google Analytics 4
+        if (typeof gtag !== 'undefined') {
+            gtag('config', 'GA_MEASUREMENT_ID', {
+                page_title: page,
+                page_location: window.location.href
+            });
         }
-    }
-    
-    static getStorage(key, defaultValue = null) {
-        try {
-            const value = localStorage.getItem(key);
-            return value ? JSON.parse(value) : defaultValue;
-        } catch (e) {
-            console.error('Error getting localStorage:', e);
-            return defaultValue;
+
+        // Facebook Pixel
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'PageView');
         }
-    }
-    
-    static removeStorage(key) {
-        try {
-            localStorage.removeItem(key);
-        } catch (e) {
-            console.error('Error removing localStorage:', e);
+
+        console.log(`Page view tracked: ${page}`);
+    },
+
+    trackEvent: (eventName, parameters = {}) => {
+        // Google Analytics 4
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, parameters);
         }
-    }
-    
-    // Cookie utilities
-    static setCookie(name, value, days = 30) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value};${expires};path=/`;
-    }
-    
-    static getCookie(name) {
-        const nameEQ = name + '=';
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+
+        // Facebook Pixel
+        if (typeof fbq !== 'undefined') {
+            fbq('track', eventName, parameters);
         }
-        return null;
+
+        console.log(`Event tracked: ${eventName}`, parameters);
+    },
+
+    trackFormSubmission: (formName) => {
+        AnalyticsUtils.trackEvent('form_submit', {
+            form_name: formName,
+            timestamp: new Date().toISOString()
+        });
     }
-    
-    static deleteCookie(name) {
-        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    }
-    
-    // Device detection utilities
-    static isMobile() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-    
-    static isTablet() {
-        return /iPad|Android|Tablet/i.test(navigator.userAgent);
-    }
-    
-    static isDesktop() {
-        return !this.isMobile() && !this.isTablet();
-    }
-    
-    static getViewportWidth() {
-        return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    }
-    
-    static getViewportHeight() {
-        return Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-    }
-    
-    // Performance utilities
-    static requestIdleCallback(callback) {
-        if (window.requestIdleCallback) {
-            window.requestIdleCallback(callback);
-        } else {
-            setTimeout(callback, 1);
+};
+
+// Error handling utilities
+const ErrorUtils = {
+    handleError: (error, context = '') => {
+        console.error(`Error in ${context}:`, error);
+
+        // Send to error reporting service (e.g., Sentry)
+        if (typeof Sentry !== 'undefined') {
+            Sentry.captureException(error, {
+                tags: { context }
+            });
         }
-    }
-    
-    static isInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-    
-    // String utilities
-    static capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-    
-    static slugify(str) {
-        return str
-            .toLowerCase()
-            .trim()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/[\s_-]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-    }
-    
-    static truncate(str, length) {
-        return str.length > length ? str.substring(0, length) + '...' : str;
-    }
-    
-    // Number utilities
-    static formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
-    
-    static formatCurrency(num, currency = 'USD') {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: currency
-        }).format(num);
-    }
-    
-    static randomBetween(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    
-    // Date utilities
-    static formatDate(date, format = 'YYYY-MM-DD') {
-        const d = new Date(date);
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        
-        return format
-            .replace('YYYY', year)
-            .replace('MM', month)
-            .replace('DD', day);
-    }
-    
-    static timeAgo(date) {
-        const now = new Date();
-        const diff = now - new Date(date);
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-        
-        if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
-        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-        if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-        return 'just now';
-    }
-    
-    // Loading utilities
-    static showLoader(element) {
-        const loader = this.createElement('div', 'loading-spinner');
-        loader.innerHTML = '<div class="spinner"></div>';
-        element.appendChild(loader);
-    }
-    
-    static hideLoader(element) {
-        const loader = element.querySelector('.loading-spinner');
-        if (loader) {
-            loader.remove();
-        }
-    }
-    
-    // Error handling utilities
-    static handleError(error, context = 'Application') {
-        console.error(`${context} Error:`, error);
-        
-        // Could send to error reporting service
-        if (window.errorReporting) {
-            window.errorReporting.report(error, context);
-        }
-    }
-    
-    // Accessibility utilities
-    static announceToScreenReader(message) {
-        const announcement = this.createElement('div', 'sr-only');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.textContent = message;
-        document.body.appendChild(announcement);
-        
+    },
+
+    showUserError: (message, type = 'error') => {
+        // Create and show user-friendly error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = `alert alert-${type}`;
+        errorDiv.textContent = message;
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'error' ? '#ef4444' : '#10b981'};
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        `;
+
+        document.body.appendChild(errorDiv);
+
         setTimeout(() => {
-            document.body.removeChild(announcement);
-        }, 1000);
-    }
-    
-    static trapFocus(element) {
-        const focusableElements = element.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        
-        const firstFocusableElement = focusableElements[0];
-        const lastFocusableElement = focusableElements[focusableElements.length - 1];
-        
-        element.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                if (e.shiftKey) {
-                    if (document.activeElement === firstFocusableElement) {
-                        lastFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                } else {
-                    if (document.activeElement === lastFocusableElement) {
-                        firstFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                }
+            if (errorDiv.parentNode) {
+                errorDiv.parentNode.removeChild(errorDiv);
             }
-        });
+        }, 5000);
     }
-}
-
-// Form validation utilities
-class FormValidator {
-    constructor(form) {
-        this.form = form;
-        this.rules = {};
-        this.errors = {};
-    }
-    
-    addRule(field, rule, message) {
-        if (!this.rules[field]) {
-            this.rules[field] = [];
-        }
-        this.rules[field].push({ rule, message });
-    }
-    
-    validate() {
-        this.errors = {};
-        let isValid = true;
-        
-        for (const field in this.rules) {
-            const element = this.form.querySelector(`[name="${field}"]`);
-            if (!element) continue;
-            
-            const value = element.value;
-            
-            for (const validation of this.rules[field]) {
-                if (!validation.rule(value)) {
-                    this.errors[field] = validation.message;
-                    isValid = false;
-                    break;
-                }
-            }
-        }
-        
-        return isValid;
-    }
-    
-    showErrors() {
-        for (const field in this.errors) {
-            const errorElement = this.form.querySelector(`#${field}-error`);
-            if (errorElement) {
-                errorElement.textContent = this.errors[field];
-                errorElement.classList.add('show');
-            }
-        }
-    }
-    
-    clearErrors() {
-        const errorElements = this.form.querySelectorAll('.error-message');
-        errorElements.forEach(el => {
-            el.textContent = '';
-            el.classList.remove('show');
-        });
-    }
-}
-
-// Performance monitoring
-class PerformanceMonitor {
-    constructor() {
-        this.metrics = {};
-        this.init();
-    }
-    
-    init() {
-        this.measurePageLoad();
-        this.measureLCP();
-        this.measureFID();
-        this.measureCLS();
-    }
-    
-    measurePageLoad() {
-        window.addEventListener('load', () => {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            this.metrics.pageLoadTime = perfData.loadEventEnd - perfData.loadEventStart;
-        });
-    }
-    
-    measureLCP() {
-        if ('web-vitals' in window) {
-            window.webVitals.getLCP((metric) => {
-                this.metrics.lcp = metric.value;
-            });
-        }
-    }
-    
-    measureFID() {
-        if ('web-vitals' in window) {
-            window.webVitals.getFID((metric) => {
-                this.metrics.fid = metric.value;
-            });
-        }
-    }
-    
-    measureCLS() {
-        if ('web-vitals' in window) {
-            window.webVitals.getCLS((metric) => {
-                this.metrics.cls = metric.value;
-            });
-        }
-    }
-    
-    getMetrics() {
-        return this.metrics;
-    }
-}
+};
 
 // Export utilities
-window.Utils = Utils;
-window.FormValidator = FormValidator;
-window.PerformanceMonitor = PerformanceMonitor;
+window.DeviceUtils = DeviceUtils;
+window.StorageUtils = StorageUtils;
+window.UrlUtils = UrlUtils;
+window.ValidationUtils = ValidationUtils;
+window.DateUtils = DateUtils;
+window.DomUtils = DomUtils;
+window.AnimationUtils = AnimationUtils;
+window.PerformanceUtils = PerformanceUtils;
+window.AnalyticsUtils = AnalyticsUtils;
+window.ErrorUtils = ErrorUtils;
 
-// Initialize performance monitoring
-if (window.location.hostname !== 'localhost') {
-    const performanceMonitor = new PerformanceMonitor();
-}
+// Global error handler
+window.addEventListener('error', (event) => {
+    ErrorUtils.handleError(event.error, 'Global error handler');
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    ErrorUtils.handleError(event.reason, 'Unhandled promise rejection');
+});

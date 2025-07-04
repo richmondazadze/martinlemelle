@@ -24,9 +24,14 @@
   }
   </script>
   
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&family=Helvetica:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link href="css/main.css" rel="stylesheet">
   <link href="css/components.css" rel="stylesheet">
   <link href="css/animations.css" rel="stylesheet">
@@ -39,13 +44,14 @@
   <nav class="nav" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
       <div class="nav-logo">
+        <img src="images/logo.png" alt="GSU Logo" class="nav-logo-img">
         <span class="logo-text">Dr. Martin Lemelle, Jr.</span>
       </div>
       <ul class="nav-menu" id="nav-menu">
-        <li class="nav-item"><a href="#hero" class="nav-link active">Home</a></li>
-        <li class="nav-item"><a href="#meet-martin" class="nav-link">Meet Martin</a></li>
-        <li class="nav-item"><a href="#stay-connected" class="nav-link">Stay Connected</a></li>
-        <li class="nav-item"><a href="#media" class="nav-link">Media</a></li>
+        <li class="nav-item"><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link" data-page="about">About</a></li>
+        <li class="nav-item"><a href="#leadership" class="nav-link" data-page="leadership">Leadership</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
       </ul>
       <div class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span class="bar"></span>
@@ -55,150 +61,444 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="hero-background">
-      <div class="hero-overlay"></div>
-      <img src="images/hero-portrait.jpg" alt="Dr. Martin Lemelle, Jr. - Professional Portrait" class="hero-image">
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title animate-on-scroll">Dr. Martin Lemelle, Jr.</h1>
-      <p class="hero-subtitle animate-on-scroll">11th President, Grambling State University</p>
-      <p class="hero-tagline animate-on-scroll">Visionary Leadership • Financial Excellence • Educational Innovation</p>
-      <div class="cta-buttons animate-on-scroll">
-        <button class="btn-primary" onclick="scrollToSection('meet-martin')">Learn More</button>
-        <button class="btn-secondary" onclick="scrollToSection('stay-connected')">Contact</button>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <div class="scroll-arrow"></div>
-    </div>
-  </section>
-
   <!-- Main Content -->
   <main id="main-content">
     
-    <!-- Meet Martin Section -->
-    <section class="meet-martin" id="meet-martin">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-on-scroll">Meet Martin</h2>
-          <div class="section-divider animate-on-scroll"></div>
+    <!-- HOME PAGE -->
+    <div class="page active" id="home" data-page="home">
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-background">
+          <div class="hero-overlay"></div>
+          <img src="images/hero-portrait.jpg" alt="Dr. Martin Lemelle, Jr. - Professional Portrait" class="hero-image">
         </div>
-        
-        <div class="meet-content">
-          <div class="meet-text animate-on-scroll">
-            <div class="bio-section">
-              <h3>Distinguished Leadership</h3>
-              <p>Dr. Martin Lemelle, Jr. serves as the 11th President of Grambling State University, bringing a wealth of experience in higher education administration and financial excellence to one of America's premier historically black colleges and universities.</p>
-              
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-number">11th</div>
-                  <div class="stat-label">President</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-number">25+</div>
-                  <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-number">$50M+</div>
-                  <div class="stat-label">Financial Growth</div>
-                </div>
-              </div>
+        <div class="hero-content">
+          <div class="hero-badge animate-on-scroll">
+            <i class="fas fa-star"></i>
+            <span>11th President</span>
+          </div>
+          <h1 class="hero-title animate-on-scroll">Dr. Martin Lemelle, Jr.</h1>
+          <p class="hero-subtitle animate-on-scroll">President, Grambling State University</p>
+          <p class="hero-tagline animate-on-scroll">Visionary Leadership • Financial Excellence • Educational Innovation</p>
+          <div class="hero-stats animate-on-scroll">
+            <div class="stat-item">
+              <div class="stat-number">25+</div>
+              <div class="stat-label">Years Experience</div>
             </div>
-            
-            <div class="bio-section">
-              <h3>Educational Excellence</h3>
-              <p>Throughout his distinguished career, Dr. Lemelle has demonstrated an unwavering commitment to student success, institutional growth, and academic excellence. His strategic vision has transformed multiple institutions through innovative programs and sustainable financial management.</p>
-              
-              <blockquote class="pull-quote">
-                "Education is the foundation upon which we build our future. Every student deserves the opportunity to reach their full potential."
-              </blockquote>
+            <div class="stat-item">
+              <div class="stat-number">$6.5B</div>
+              <div class="stat-label">Budgets Managed</div>
             </div>
-            
-            <div class="bio-section">
-              <h3>Vision for the Future</h3>
-              <p>Under Dr. Lemelle's leadership, Grambling State University continues to expand its reach and impact, preparing students for success in an ever-evolving global economy while maintaining its proud tradition of excellence and service.</p>
+            <div class="stat-item">
+              <div class="stat-number">200%</div>
+              <div class="stat-label">Fiscal Improvement</div>
             </div>
           </div>
-          
-          <div class="meet-image animate-on-scroll">
-            <img src="images/about-portrait.jpg" alt="Dr. Martin Lemelle, Jr. in his office" class="about-portrait">
-            <div class="image-caption">Dr. Lemelle in his office at Grambling State University</div>
+          <div class="cta-buttons animate-on-scroll">
+            <button class="btn-primary" onclick="showPage('about')">
+              <i class="fas fa-user"></i>
+              <span>Learn More</span>
+            </button>
+            <button class="btn-secondary" onclick="showPage('contact')">
+              <i class="fas fa-envelope"></i>
+              <span>Get in Touch</span>
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="scroll-indicator" onclick="scrollToSection('home-features')">
+          <div class="scroll-arrow"></div>
+          <span>Explore</span>
+        </div>
+      </section>
 
-    <!-- Stay Connected Section -->
-    <section class="stay-connected" id="stay-connected">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-on-scroll">Stay Connected</h2>
-          <div class="section-divider animate-on-scroll"></div>
+      <!-- Features Section -->
+      <section class="features" id="home-features">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title animate-on-scroll">Transforming Higher Education</h2>
+            <p class="section-subtitle animate-on-scroll">Leading Grambling State University with vision, integrity, and excellence</p>
+          </div>
+          
+          <div class="features-grid">
+            <div class="feature-card animate-on-scroll">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Financial Excellence</h3>
+              <p>Managed budgets totaling $6.5 billion across prestigious organizations, improving GSU's fiscal health by 200%</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+              <div class="feature-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h3>Educational Innovation</h3>
+              <p>Third-generation alumnus bringing fresh perspectives while honoring institutional traditions and values</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+              <div class="feature-icon">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <h3>Strategic Partnerships</h3>
+              <p>Secured the university's largest corporate gift and built lasting relationships with key stakeholders</p>
+            </div>
+          </div>
         </div>
-        
-        <div class="contact-content">
-          <div class="contact-info animate-on-scroll">
-            <h3>Get in Touch</h3>
-            <p>We welcome your inquiries and look forward to connecting with you. Whether you're a prospective student, alumnus, community member, or partner, we're here to help.</p>
-            
-            <div class="contact-methods">
-              <div class="contact-method">
-                <div class="contact-icon">📧</div>
-                <div class="contact-details">
-                  <h4>Email</h4>
-                  <p>president@gram.edu</p>
+      </section>
+
+      <!-- Quick Bio Section -->
+      <section class="quick-bio">
+        <div class="container">
+          <div class="bio-content">
+            <div class="bio-text animate-on-scroll">
+              <h2>A Legacy of Excellence</h2>
+              <p class="lead">Dr. Martin Lemelle, Jr. brings a unique combination of financial expertise, educational leadership, and deep institutional knowledge to Grambling State University.</p>
+              <p>As a third-generation alumnus with extensive experience at organizations like PricewaterhouseCoopers, IBM, and General Electric, Dr. Lemelle is uniquely positioned to lead GSU into its next chapter of growth and innovation.</p>
+              <button class="btn-outline" onclick="showPage('about')">
+                <span>Read Full Biography</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+            <div class="bio-image animate-on-scroll">
+              <img src="images/about-portrait.jpg" alt="Dr. Lemelle in his office">
+              <div class="bio-achievements">
+                <div class="achievement">
+                  <i class="fas fa-award"></i>
+                  <span>Byron K. Armstrong Award Recipient</span>
                 </div>
-              </div>
-              <div class="contact-method">
-                <div class="contact-icon">📞</div>
-                <div class="contact-details">
-                  <h4>Phone</h4>
-                  <p>(318) 274-6117</p>
-                </div>
-              </div>
-              <div class="contact-method">
-                <div class="contact-icon">📍</div>
-                <div class="contact-details">
-                  <h4>Office</h4>
-                  <p>President's Office<br>Grambling State University<br>Grambling, LA 71245</p>
+                <div class="achievement">
+                  <i class="fas fa-building"></i>
+                  <span>Executive VP & CFO at MICA</span>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div class="contact-form animate-on-scroll">
-            <form id="contact-form" class="form">
-              <div class="form-progress">
-                <div class="progress-bar">
-                  <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div class="page" id="about" data-page="about">
+      <section class="page-hero">
+        <div class="container">
+          <div class="page-hero-content">
+            <h1 class="page-title animate-on-scroll">About Dr. Lemelle</h1>
+            <p class="page-subtitle animate-on-scroll">A distinguished leader with a passion for educational excellence</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bio-detailed">
+        <div class="container">
+          <div class="bio-layout">
+            <div class="bio-sidebar animate-on-scroll">
+              <div class="profile-card">
+                <img src="images/profile-formal.jpg" alt="Dr. Martin Lemelle, Jr." class="profile-image">
+                <h3>Dr. Martin Lemelle, Jr.</h3>
+                <p class="profile-title">11th President<br>Grambling State University</p>
+                
+                <div class="profile-stats">
+                  <div class="profile-stat">
+                    <i class="fas fa-calendar"></i>
+                    <div>
+                      <span class="stat-label">Experience</span>
+                      <span class="stat-value">25+ Years</span>
+                    </div>
+                  </div>
+                  <div class="profile-stat">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                      <span class="stat-label">Education</span>
+                      <span class="stat-value">3 Degrees</span>
+                    </div>
+                  </div>
+                  <div class="profile-stat">
+                    <i class="fas fa-building"></i>
+                    <div>
+                      <span class="stat-label">Organizations</span>
+                      <span class="stat-value">7+ Major Roles</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="progress-text">Step <span id="current-step">1</span> of 3</div>
               </div>
-              
-              <div class="form-step active" id="step-1">
-                <h3>Personal Information</h3>
-                <div class="form-group">
-                  <label for="name">Full Name *</label>
-                  <input type="text" id="name" name="name" required>
-                  <div class="error-message" id="name-error"></div>
+            </div>
+
+            <div class="bio-main animate-on-scroll">
+              <div class="bio-section">
+                <h2><i class="fas fa-user-tie"></i> Presidential Leadership</h2>
+                <p>Dr. Martin Lemelle, Jr. serves as the 11th President of Grambling State University, bringing a wealth of leadership experience, financial acumen, and a deep-seated commitment to advancing higher education. As a third-generation alumnus of the institution, Dr. Lemelle embodies a family legacy of higher education leadership and a profound dedication to the university's mission.</p>
+              </div>
+
+              <div class="bio-section">
+                <h2><i class="fas fa-briefcase"></i> Professional Experience</h2>
+                <p>Prior to assuming the presidency, Dr. Lemelle served as the Executive Vice-President and Chief Financial Officer at the Maryland Institute College of Art (MICA) in Baltimore, Maryland. His tenure at MICA was marked by visionary leadership and strategic financial management, enhancing the operations of the nation's oldest continuously degree-granting college of art and design.</p>
+                
+                <p>With an extensive background in finance and operations that spans several prestigious organizations, including PricewaterhouseCoopers, IBM, General Electric, Dean Foods, and Industry Retail Group, Dr. Lemelle has adeptly managed budgets collectively valued at approximately $6.5 billion. His track record highlights his exceptional ability to steward large-scale financial operations and drive organizational success.</p>
+              </div>
+
+              <div class="bio-section">
+                <h2><i class="fas fa-chart-growth"></i> Transformational Impact</h2>
+                <p>Dr. Lemelle played a pivotal role in shaping the future of Grambling State University during his tenure as Executive Vice-President and Chief Operating Officer. His accomplishments include securing the university's most substantial corporate gift to date and significantly improving its fiscal health score by 200%, underscoring his strategic insight and unwavering dedication to the institution's financial stability and growth.</p>
+              </div>
+
+              <div class="bio-section">
+                <h2><i class="fas fa-graduation-cap"></i> Educational Background</h2>
+                <div class="education-grid">
+                  <div class="education-item">
+                    <div class="education-icon">
+                      <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                      <h4>Doctorate in Business Administration</h4>
+                      <p>SKEMA Business School, Paris, France</p>
+                    </div>
+                  </div>
+                  <div class="education-item">
+                    <div class="education-icon">
+                      <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div class="education-content">
+                      <h4>Master of Business Administration</h4>
+                      <p>The George Washington University</p>
+                    </div>
+                  </div>
+                  <div class="education-item">
+                    <div class="education-icon">
+                      <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="education-content">
+                      <h4>B.S. in Accounting, Magna Cum Laude</h4>
+                      <p>Grambling State University</p>
+                    </div>
+                  </div>
                 </div>
+              </div>
+
+              <div class="bio-section">
+                <h2><i class="fas fa-heart"></i> Service & Memberships</h2>
+                <p>His service extends to numerous memberships, including Kappa Alpha Psi Fraternity, Inc., where he is a recipient of the Byron K. Armstrong Award, and United Way of Central Maryland Board of Directors, where he serves as treasurer.</p>
+              </div>
+
+              <div class="bio-section">
+                <h2><i class="fas fa-telescope"></i> Vision for the Future</h2>
+                <p>Dr. Lemelle's presidency at Grambling State University is guided by a vision that respects the institution's history and traditions while focusing on co-creating strategic initiatives for the future. His leadership is informed by a comprehensive understanding of higher education challenges and opportunities, driving his commitment to ensuring that Grambling State University remains at the forefront of innovation, academic excellence, and community engagement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- LEADERSHIP PAGE -->
+    <div class="page" id="leadership" data-page="leadership">
+      <section class="page-hero">
+        <div class="container">
+          <div class="page-hero-content">
+            <h1 class="page-title animate-on-scroll">Leadership & Vision</h1>
+            <p class="page-subtitle animate-on-scroll">Driving excellence through strategic leadership and innovation</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="leadership-content">
+        <div class="container">
+          <div class="leadership-grid">
+            <!-- Leadership Philosophy -->
+            <div class="leadership-card animate-on-scroll">
+              <div class="card-icon">
+                <i class="fas fa-compass"></i>
+              </div>
+              <h3>Leadership Philosophy</h3>
+              <p>Guided by principles of integrity, innovation, and inclusivity, Dr. Lemelle believes in collaborative leadership that empowers others and creates lasting positive change.</p>
+              <ul class="leadership-points">
+                <li><i class="fas fa-check"></i> Collaborative Decision Making</li>
+                <li><i class="fas fa-check"></i> Transparent Communication</li>
+                <li><i class="fas fa-check"></i> Continuous Innovation</li>
+                <li><i class="fas fa-check"></i> Community Engagement</li>
+              </ul>
+            </div>
+
+            <!-- Strategic Initiatives -->
+            <div class="leadership-card animate-on-scroll">
+              <div class="card-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h3>Strategic Initiatives</h3>
+              <p>Leading transformational programs that position Grambling State University for future success and enhanced student outcomes.</p>
+              <ul class="leadership-points">
+                <li><i class="fas fa-rocket"></i> Digital Innovation Programs</li>
+                <li><i class="fas fa-rocket"></i> Financial Sustainability</li>
+                <li><i class="fas fa-rocket"></i> Academic Excellence</li>
+                <li><i class="fas fa-rocket"></i> Campus Modernization</li>
+              </ul>
+            </div>
+
+            <!-- Awards & Recognition -->
+            <div class="leadership-card animate-on-scroll">
+              <div class="card-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <h3>Awards & Recognition</h3>
+              <p>Recognition for outstanding leadership and contributions to higher education and community development.</p>
+              <div class="awards-list">
+                <div class="award-item">
+                  <i class="fas fa-medal"></i>
+                  <div>
+                    <h4>Byron K. Armstrong Award</h4>
+                    <span>Kappa Alpha Psi Fraternity, Inc.</span>
+                  </div>
+                </div>
+                <div class="award-item">
+                  <i class="fas fa-star"></i>
+                  <div>
+                    <h4>Financial Excellence Recognition</h4>
+                    <span>200% Fiscal Health Improvement</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Network -->
+            <div class="leadership-card animate-on-scroll">
+              <div class="card-icon">
+                <i class="fas fa-network-wired"></i>
+              </div>
+              <h3>Professional Network</h3>
+              <p>Extensive connections across education, finance, and corporate sectors that benefit university partnerships and opportunities.</p>
+              <div class="network-companies">
+                <div class="company-logo">PwC</div>
+                <div class="company-logo">IBM</div>
+                <div class="company-logo">GE</div>
+                <div class="company-logo">MICA</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vision Statement -->
+          <div class="vision-statement animate-on-scroll">
+            <div class="vision-content">
+              <h2>Our Vision for Excellence</h2>
+              <blockquote>
+                "Education is the foundation upon which we build our future. Every student deserves the opportunity to reach their full potential, and every institution has the responsibility to provide pathways to success."
+              </blockquote>
+              <cite>- Dr. Martin Lemelle, Jr.</cite>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div class="page" id="contact" data-page="contact">
+      <section class="page-hero">
+        <div class="container">
+          <div class="page-hero-content">
+            <h1 class="page-title animate-on-scroll">Get in Touch</h1>
+            <p class="page-subtitle animate-on-scroll">Connect with Dr. Lemelle and the President's Office</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="container">
+          <div class="contact-layout">
+            <!-- Contact Information -->
+            <div class="contact-info animate-on-scroll">
+              <h2>Contact Information</h2>
+              <p>We welcome your inquiries and look forward to connecting with you. Whether you're a prospective student, alumnus, community member, or partner, we're here to help.</p>
+              
+              <div class="contact-methods">
+                <div class="contact-method">
+                  <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <div class="contact-details">
+                    <h4>Email</h4>
+                    <a href="mailto:president@gram.edu">president@gram.edu</a>
+                  </div>
+                </div>
+                
+                <div class="contact-method">
+                  <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                  </div>
+                  <div class="contact-details">
+                    <h4>Phone</h4>
+                    <a href="tel:+13182746117">(318) 274-6117</a>
+                  </div>
+                </div>
+                
+                <div class="contact-method">
+                  <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div class="contact-details">
+                    <h4>Office Address</h4>
+                    <address>
+                      President's Office<br>
+                      Grambling State University<br>
+                      403 Main Street<br>
+                      Grambling, LA 71245
+                    </address>
+                  </div>
+                </div>
+                
+                <div class="contact-method">
+                  <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="contact-details">
+                    <h4>Office Hours</h4>
+                    <p>Monday - Friday<br>8:00 AM - 5:00 PM</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Media -->
+              <div class="social-media">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                  <a href="#" class="social-link" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-x-twitter"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form animate-on-scroll">
+              <form id="contact-form" class="form">
+                <h3>Send a Message</h3>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                  </div>
+                </div>
+                
                 <div class="form-group">
                   <label for="email">Email Address *</label>
                   <input type="email" id="email" name="email" required>
-                  <div class="error-message" id="email-error"></div>
                 </div>
+                
                 <div class="form-group">
                   <label for="phone">Phone Number</label>
                   <input type="tel" id="phone" name="phone">
                 </div>
-                <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
-              </div>
-              
-              <div class="form-step" id="step-2">
-                <h3>Your Inquiry</h3>
+                
                 <div class="form-group">
                   <label for="subject">Subject *</label>
                   <select id="subject" name="subject" required>
@@ -208,168 +508,35 @@
                     <option value="speaking">Speaking Engagement</option>
                     <option value="media">Media Request</option>
                     <option value="alumni">Alumni Relations</option>
+                    <option value="student">Student Affairs</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
+                
                 <div class="form-group">
                   <label for="message">Message *</label>
-                  <textarea id="message" name="message" rows="5" required></textarea>
-                  <div class="error-message" id="message-error"></div>
+                  <textarea id="message" name="message" rows="6" required placeholder="Please provide details about your inquiry..."></textarea>
                 </div>
-                <div class="form-navigation">
-                  <button type="button" class="btn-secondary" onclick="prevStep()">Previous</button>
-                  <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
-                </div>
-              </div>
-              
-              <div class="form-step" id="step-3">
-                <h3>Preferences</h3>
-                <div class="form-group">
+                
+                <div class="form-group checkbox-group">
                   <label class="checkbox-label">
                     <input type="checkbox" id="newsletter" name="newsletter">
                     <span class="checkmark"></span>
-                    Subscribe to our newsletter for updates and announcements
+                    <span>Subscribe to university updates and announcements</span>
                   </label>
                 </div>
-                <div class="form-group">
-                  <label for="preferred-contact">Preferred Contact Method</label>
-                  <select id="preferred-contact" name="preferred-contact">
-                    <option value="email">Email</option>
-                    <option value="phone">Phone</option>
-                    <option value="either">Either</option>
-                  </select>
-                </div>
-                <div class="form-navigation">
-                  <button type="button" class="btn-secondary" onclick="prevStep()">Previous</button>
-                  <button type="submit" class="btn-primary">Send Message</button>
-                </div>
-              </div>
-            </form>
+                
+                <button type="submit" class="btn-primary">
+                  <i class="fas fa-paper-plane"></i>
+                  <span>Send Message</span>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <!-- Media Section -->
-    <section class="media" id="media">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-on-scroll">Media</h2>
-          <div class="section-divider animate-on-scroll"></div>
-        </div>
-        
-        <div class="media-content">
-          <div class="media-tabs">
-            <button class="tab-button active" onclick="showTab('awards')">Awards & Recognition</button>
-            <button class="tab-button" onclick="showTab('press')">Press Releases</button>
-            <button class="tab-button" onclick="showTab('gallery')">Photo Gallery</button>
-            <button class="tab-button" onclick="showTab('videos')">Videos</button>
-          </div>
-          
-          <div class="tab-content active" id="awards">
-            <div class="awards-grid">
-              <div class="award-card animate-on-scroll">
-                <div class="award-icon">🏆</div>
-                <h3>Outstanding Leadership Award</h3>
-                <p>National Association of Student Personnel Administrators (NASPA)</p>
-                <span class="award-year">2023</span>
-              </div>
-              <div class="award-card animate-on-scroll">
-                <div class="award-icon">🎓</div>
-                <h3>Excellence in Higher Education</h3>
-                <p>Louisiana Board of Regents</p>
-                <span class="award-year">2022</span>
-              </div>
-              <div class="award-card animate-on-scroll">
-                <div class="award-icon">💼</div>
-                <h3>Financial Excellence Award</h3>
-                <p>Higher Education Financial Management Association</p>
-                <span class="award-year">2021</span>
-              </div>
-              <div class="award-card animate-on-scroll">
-                <div class="award-icon">🌟</div>
-                <h3>Community Impact Award</h3>
-                <p>Grambling Chamber of Commerce</p>
-                <span class="award-year">2020</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="tab-content" id="press">
-            <div class="press-releases">
-              <article class="press-item animate-on-scroll">
-                <div class="press-date">March 15, 2024</div>
-                <h3>Grambling State University Announces New STEM Initiative</h3>
-                <p>Under President Lemelle's leadership, the university launches groundbreaking programs in science, technology, engineering, and mathematics...</p>
-                <a href="#" class="read-more">Read More</a>
-              </article>
-              <article class="press-item animate-on-scroll">
-                <div class="press-date">February 28, 2024</div>
-                <h3>Record Enrollment Numbers for Fall 2024</h3>
-                <p>Grambling State University sees unprecedented growth in student enrollment, marking the highest numbers in university history...</p>
-                <a href="#" class="read-more">Read More</a>
-              </article>
-              <article class="press-item animate-on-scroll">
-                <div class="press-date">January 10, 2024</div>
-                <h3>University Receives $10 Million Grant for Infrastructure</h3>
-                <p>Thanks to Dr. Lemelle's strategic vision, the university secures major funding for campus modernization and technology upgrades...</p>
-                <a href="#" class="read-more">Read More</a>
-              </article>
-            </div>
-          </div>
-          
-          <div class="tab-content" id="gallery">
-            <div class="photo-gallery">
-              <div class="gallery-item animate-on-scroll" onclick="openLightbox('images/gallery1.jpg')">
-                <img src="images/gallery1.jpg" alt="Dr. Lemelle at graduation ceremony">
-                <div class="gallery-overlay">
-                  <div class="gallery-caption">Graduation Ceremony 2024</div>
-                </div>
-              </div>
-              <div class="gallery-item animate-on-scroll" onclick="openLightbox('images/gallery2.jpg')">
-                <img src="images/gallery2.jpg" alt="Meeting with state officials">
-                <div class="gallery-overlay">
-                  <div class="gallery-caption">Meeting with State Officials</div>
-                </div>
-              </div>
-              <div class="gallery-item animate-on-scroll" onclick="openLightbox('images/gallery3.jpg')">
-                <img src="images/gallery3.jpg" alt="Campus tour with donors">
-                <div class="gallery-overlay">
-                  <div class="gallery-caption">Campus Tour with Major Donors</div>
-                </div>
-              </div>
-              <div class="gallery-item animate-on-scroll" onclick="openLightbox('images/gallery4.jpg')">
-                <img src="images/gallery4.jpg" alt="Student interaction">
-                <div class="gallery-overlay">
-                  <div class="gallery-caption">Student Engagement Event</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="tab-content" id="videos">
-            <div class="video-grid">
-              <div class="video-item animate-on-scroll">
-                <div class="video-thumbnail">
-                  <img src="images/video-thumb1.jpg" alt="State of the University Address">
-                  <div class="play-button">▶</div>
-                </div>
-                <h3>State of the University Address 2024</h3>
-                <p>Dr. Lemelle addresses the university community on achievements and future goals.</p>
-              </div>
-              <div class="video-item animate-on-scroll">
-                <div class="video-thumbnail">
-                  <img src="images/video-thumb2.jpg" alt="Leadership Interview">
-                  <div class="play-button">▶</div>
-                </div>
-                <h3>Leadership in Higher Education Interview</h3>
-                <p>An in-depth conversation about the future of higher education and leadership.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- Footer -->
@@ -377,45 +544,74 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>Dr. Martin Lemelle, Jr.</h3>
-          <p>11th President<br>Grambling State University</p>
+          <div class="footer-logo">
+            <img src="images/logo-white.png" alt="GSU Logo" class="footer-logo-img">
+            <h3>Dr. Martin Lemelle, Jr.</h3>
+            <p>11th President<br>Grambling State University</p>
+          </div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
         </div>
+        
         <div class="footer-section">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#meet-martin">Meet Martin</a></li>
-            <li><a href="#stay-connected">Stay Connected</a></li>
-            <li><a href="#media">Media</a></li>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('about')">About</a></li>
+            <li><a href="#" onclick="showPage('leadership')">Leadership</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
           </ul>
         </div>
+        
         <div class="footer-section">
-          <h4>Contact Information</h4>
-          <p>President's Office<br>Grambling State University<br>Grambling, LA 71245</p>
-          <p>Phone: (318) 274-6117</p>
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <p><i class="fas fa-envelope"></i> president@gram.edu</p>
+            <p><i class="fas fa-phone"></i> (318) 274-6117</p>
+            <p><i class="fas fa-map-marker-alt"></i> Grambling, LA 71245</p>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>University</h4>
+          <ul>
+            <li><a href="https://www.gram.edu" target="_blank">Grambling State University</a></li>
+            <li><a href="#" onclick="showPage('about')">President's Biography</a></li>
+            <li><a href="#" onclick="showPage('leadership')">Leadership Vision</a></li>
+          </ul>
         </div>
       </div>
+      
       <div class="footer-bottom">
-        <p>&copy; 2024 Grambling State University. All rights reserved.</p>
+        <div class="footer-bottom-content">
+          <p>&copy; 2024 Grambling State University. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Accessibility</a>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <img class="lightbox-image" id="lightbox-image" src="" alt="">
-  </div>
-
-  <!-- Thank You Modal -->
-  <div class="modal" id="thank-you-modal">
+  <!-- Success Modal -->
+  <div class="modal" id="success-modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModal()">&times;</span>
       <div class="modal-body">
-        <div class="success-icon">✓</div>
-        <h2>Thank You!</h2>
-        <p>Your message has been sent successfully. We appreciate your interest and will respond within 24-48 hours.</p>
-        <button class="btn-primary" onclick="closeModal()">Close</button>
+        <div class="success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h2>Message Sent Successfully!</h2>
+        <p>Thank you for your message. We appreciate your interest and will respond within 24-48 hours.</p>
+        <button class="btn-primary" onclick="closeModal()">
+          <span>Close</span>
+        </button>
       </div>
     </div>
   </div>
