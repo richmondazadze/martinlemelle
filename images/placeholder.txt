@@ -1,0 +1,16 @@
+
+Images directory - add the following images:
+- hero-portrait.jpg (Dr. Lemelle's hero portrait)
+- about-portrait.jpg (Dr. Lemelle's about section portrait)
+- gallery1.jpg through gallery4.jpg (gallery images)
+- video-thumb1.jpg and video-thumb2.jpg (video thumbnails)
+- favicon.ico (website favicon)
+
+Image specifications:
+- Hero portrait: 1920x1080px, high quality, professional
+- About portrait: 800x600px, office setting
+- Gallery images: 600x400px each
+- Video thumbnails: 480x270px each
+- Favicon: 32x32px, transparent background
+
+All images should be optimized for web (under 500KB each) and use progressive JPEG format where applicable.
