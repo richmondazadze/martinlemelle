@@ -2,7 +2,7 @@
 :root {
   --gold-primary: #B8860B;
   --gold-secondary: #DAA520;
-  --gold-light: #F4E4A6;
+  --gold-light: #B8860B;
   --navy-primary: #1B365D;
   --navy-secondary: #2A4A6B;
   --white: #FFFFFF;
@@ -460,34 +460,35 @@ a:hover {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: var(--space-8) var(--space-4);
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  padding: var(--space-10) var(--space-6);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
   border-radius: var(--border-radius-2xl);
-  border: 1px solid rgba(184, 134, 11, 0.3);
+  border: 2px solid rgba(184, 134, 11, 0.4);
   box-shadow: var(--shadow-xl);
 }
 
 .page-title {
-  font-size: clamp(var(--font-size-4xl), 4vw, var(--font-size-5xl));
+  font-size: clamp(var(--font-size-4xl), 5vw, var(--font-size-5xl));
   font-weight: 800;
   margin-bottom: var(--space-6);
   color: var(--white);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  background: linear-gradient(135deg, var(--white), var(--gold-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .page-subtitle {
   font-size: var(--font-size-xl);
-  color: var(--gold-light);
+  color: var(--white);
   font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  opacity: 0.95;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  opacity: 0.9;
+  font-family: var(--font-family-body);
+  line-height: 1.4;
 }
 
 /* Features Section */
@@ -771,7 +772,7 @@ a:hover {
 
 .leadership-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-8);
   margin-bottom: var(--space-16);
 }
@@ -782,11 +783,25 @@ a:hover {
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-base);
   transition: var(--transition-base);
+  border: 1px solid var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.leadership-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-secondary));
 }
 
 .leadership-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--gold-primary);
 }
 
 .card-icon {
@@ -1222,6 +1237,33 @@ The provided changes only update the contact info and method headings in the CSS
 
   .leadership-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .leadership-card {
+    padding: var(--space-6);
+    margin: 0 var(--space-2);
+  }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .leadership-card h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .leadership-points {
+    margin-top: var(--space-4);
+  }
+
+  .leadership-points li {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
   }
 
   .footer-bottom-content {
@@ -1237,6 +1279,20 @@ The provided changes only update the contact info and method headings in the CSS
 
   .page-hero {
     padding: var(--space-16) 0 var(--space-12);
+  }
+
+  .page-hero-content {
+    padding: var(--space-8) var(--space-4);
+    margin: 0 var(--space-2);
+  }
+
+  .page-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-lg);
   }
 
   .profile-card {
