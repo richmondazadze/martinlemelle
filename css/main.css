@@ -1549,7 +1549,7 @@ a:hover {
   }
 
   .leadership-card p {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     margin-bottom: var(--space-6);
   }
 
@@ -1766,7 +1766,7 @@ a:hover {
   }
 
   .leadership-card p {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
   }
 
   .highlight-item {
