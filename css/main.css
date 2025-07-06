@@ -329,6 +329,22 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+.hero-badge-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: var(--space-6);
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.hero-badge-secondary i {
+  color: var(--gold-primary);
+}
+
 .hero-title {
   font-size: clamp(var(--font-size-4xl), 10vw, var(--font-size-6xl));
   font-weight: 800;
