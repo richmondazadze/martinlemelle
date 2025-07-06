@@ -50,6 +50,7 @@
   max-width: 1200px;
   margin: 0 auto;
   grid-auto-rows: minmax(150px, auto);
+  grid-auto-flow: dense;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -67,7 +68,7 @@
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity 0.3s ease-in-out;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   display: block;
   opacity: 0;
@@ -109,6 +110,7 @@
   opacity: 1;
   animation: none;
   background: none;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
 .gallery-grid img.loaded::before {
@@ -182,8 +184,8 @@
 .gallery-grid img:nth-child(8) { grid-column: span 1; grid-row: span 1; } /* martin_gram_suite_turtle_neck.jpeg - small */
 .gallery-grid img:nth-child(9) { grid-column: span 3; grid-row: span 1; } /* how_it_started.jpeg - extra wide */
 .gallery-grid img:nth-child(10) { grid-column: span 1; grid-row: span 2; } /* martin_gram_suit.jpeg - tall */
-.gallery-grid img:nth-child(11) { grid-column: span 1; grid-row: span 1; } /* martin_on_the_mic.jpeg - small */
-.gallery-grid img:nth-child(12) { grid-column: span 2; grid-row: span 1; } /* martin_arrival.jpeg - wide */
+.gallery-grid img:nth-child(11) { grid-column: span 2; grid-row: span 1; } /* martin_on_the_mic.jpeg - wide on large */
+.gallery-grid img:nth-child(12) { grid-column: span 2; grid-row: span 1; } /* martin_arrival.jpeg - wide on large */
 
 /* Responsive Design */
 @media (max-width: 1024px) {
