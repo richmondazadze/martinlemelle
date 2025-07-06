@@ -4,6 +4,44 @@
   background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
 }
 
+.gallery-loading {
+  text-align: center;
+  padding: var(--space-12);
+  color: var(--gray-600);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.gallery-loading::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(27, 54, 93, 0.1);
+  border-top: 3px solid var(--gold-primary);
+  border-radius: 50%;
+  animation: sleek-spin 1s linear infinite;
+  box-shadow: 0 4px 12px rgba(27, 54, 93, 0.1);
+}
+
+@keyframes sleek-spin {
+  0% { 
+    transform: rotate(0deg);
+    border-top-color: var(--gold-primary);
+  }
+  50% { 
+    border-top-color: var(--blue-primary);
+  }
+  100% { 
+    transform: rotate(360deg);
+    border-top-color: var(--gold-primary);
+  }
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -12,6 +50,15 @@
   max-width: 1200px;
   margin: 0 auto;
   grid-auto-rows: minmax(150px, auto);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-grid.loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .gallery-grid img {
@@ -20,14 +67,108 @@
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity 0.3s ease-in-out;
   cursor: pointer;
   display: block;
+  opacity: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+  background-size: 200% 200%;
+  animation: sleek-shimmer 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-grid img::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: sleek-sweep 1.5s ease-in-out infinite;
+}
+
+@keyframes sleek-shimmer {
+  0%, 100% { 
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+  50% { 
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+}
+
+@keyframes sleek-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.gallery-grid img.loaded {
+  opacity: 1;
+  animation: none;
+  background: none;
+}
+
+.gallery-grid img.loaded::before {
+  display: none;
+}
+
+.gallery-grid img.loading {
+  opacity: 0.9;
+  animation: sleek-shimmer 2s ease-in-out infinite;
+  box-shadow: 0 2px 12px rgba(27, 54, 93, 0.1);
+}
+
+.gallery-grid img.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(27, 54, 93, 0.2);
+  border-top: 2px solid var(--gold-primary);
+  border-radius: 50%;
+  animation: sleek-spin 1s linear infinite;
+  z-index: 1;
+}
+
+.gallery-grid img.error {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px dashed #dee2e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 0.875rem;
+  opacity: 1;
+  position: relative;
+}
+
+.gallery-grid img.error::after {
+  content: 'Image unavailable';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #6c757d;
+  font-size: 0.875rem;
+  text-align: center;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .gallery-grid img:hover {
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Grid positioning and spanning for tight packing */
