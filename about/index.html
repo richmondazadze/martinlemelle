@@ -9,6 +9,15 @@
 
   <base href="../">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/favicon-48x48.png">
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="preload" as="image" href="assets/martin-lemelle.png">
+  <link rel="preload" as="font" href="https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45_QphziTn89dtpQ.woff2" crossorigin>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +29,6 @@
   <link href="css/main.css" rel="stylesheet">
   <link href="css/components.css" rel="stylesheet">
   <link href="css/animations.css" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/favicon-48x48.png">
-  <link rel="manifest" href="../manifest.json">
 </head>
 <body>
   <!-- Skip Link for Accessibility -->
@@ -71,7 +74,7 @@
           <!-- Sidebar Profile Card -->
           <div class="bio-sidebar animate-on-scroll" style="transition-delay:0.05s;">
             <div class="profile-card">
-              <img src="assets/martin-lemelle.png" alt="Dr. Martin Lemelle, Jr." class="profile-image">
+              <img src="assets/martin-lemelle.png" alt="Dr. Martin Lemelle, Jr." class="profile-image" loading="eager">
               <h3>Dr. Martin Lemelle, Jr.</h3>
               <p class="profile-title">11th President<br>Grambling State University</p>
 
