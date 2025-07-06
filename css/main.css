@@ -21,6 +21,7 @@
   /* Typography Scale */
   --font-family-heading: 'Montserrat', sans-serif;
   --font-family-body: 'Inter', sans-serif;
+  --font-family-elegant: 'Playfair Display', serif;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -333,6 +334,45 @@ a:hover {
   font-weight: 800;
   margin-bottom: var(--space-6);
   color: var(--white);
+  font-family: var(--font-family-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  position: relative;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding: var(--space-4) 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  border-radius: var(--border-radius-full);
+  z-index: -1;
+}
+
+.hero-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: var(--gold-primary);
+  border-radius: var(--border-radius-full);
+  z-index: -1;
 }
 
 .hero-subtitle {
@@ -340,13 +380,109 @@ a:hover {
   color: var(--gold-light);
   margin-bottom: var(--space-3);
   font-weight: 500;
+  font-family: var(--font-family-elegant);
+  font-style: normal;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: var(--space-2) 0;
+}
+
+.hero-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  border-radius: var(--border-radius-full);
 }
 
 .hero-tagline {
   font-size: var(--font-size-lg);
   margin-bottom: var(--space-8);
-  opacity: 0.9;
+  opacity: 0.95;
   color: var(--gray-200);
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  position: relative;
+  padding: var(--space-3) 0;
+}
+
+.hero-tagline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: var(--gold-primary);
+  border-radius: var(--border-radius-full);
+  opacity: 0.7;
+}
+
+/* Desktop tagline styling */
+.hero-tagline .tagline-item {
+  display: inline;
+}
+
+.hero-tagline .tagline-separator {
+  display: inline;
+  margin: 0 var(--space-2);
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+/* Mobile responsive tagline breakdown */
+@media (max-width: 768px) {
+  .hero-tagline {
+    font-size: var(--font-size-base);
+    letter-spacing: 0.03em;
+    padding: var(--space-2) 0;
+    line-height: 1.8;
+  }
+  
+  .hero-tagline::before {
+    width: 30px;
+  }
+  
+  /* Break down tagline on mobile */
+  .hero-tagline .tagline-item {
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+  
+  .hero-tagline .tagline-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .hero-tagline .tagline-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-tagline {
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.02em;
+    padding: var(--space-1) 0;
+    line-height: 2;
+  }
+  
+  .hero-tagline::before {
+    width: 25px;
+  }
+  
+  .hero-tagline .tagline-item {
+    margin-bottom: var(--space-1);
+  }
 }
 
 .hero-stats {
@@ -1642,56 +1778,6 @@ a:hover {
     margin: 0 auto;
   }
 
-  .footer-bottom-content {
-    text-align: center;
-    flex-direction: column;
-  }
-
-  /* Adjust hero for mobile */
-  .hero {
-    height: auto;
-    padding-top: 100px; /* height of mobile nav */
-    padding-bottom: var(--space-16);
-    align-items: center; /* center content vertically */
-  }
-
-  .hero-content {
-    padding: 0 var(--space-4);
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: clamp(var(--font-size-3xl), 8vw, var(--font-size-5xl));
-  }
-
-  .hero-subtitle {
-    font-size: var(--font-size-xl);
-  }
-
-  .hero-tagline {
-    font-size: var(--font-size-base);
-  }
-
-  .scroll-indicator {
-    display: none; /* optional: hide scroll arrow on small screens */
-  }
-
-  /* Education section mobile */
-  .education-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-  }
-
-  .education-item {
-    flex-direction: column;
-    text-align: center;
-    padding: var(--space-6);
-  }
-
-  .education-icon {
-    margin: 0 auto var(--space-4);
-  }
-
   /* Awards list mobile */
   .awards-list {
     display: flex;
@@ -1854,10 +1940,43 @@ a:hover {
 }
 
 .page-hero p {
-  color: var(--black);
-  font-size: var(--font-size-xl);
+  color: var(--navy-primary);
+  font-size: var(--font-size-2xl);
+  font-family: var(--font-family-elegant);
+  font-weight: 400;
+  font-style: italic;
   max-width: 800px;
   margin: 0 auto;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  position: relative;
+  padding: var(--space-4) 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.page-hero p::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  border-radius: var(--border-radius-full);
+}
+
+.page-hero p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: var(--gold-primary);
+  border-radius: var(--border-radius-full);
+  opacity: 0.6;
 }
 
 @media (min-width: 1200px) {
@@ -2025,10 +2144,36 @@ a:hover {
   .page-hero {
     padding: calc(80px + var(--space-12)) 0 var(--space-10); /* 48px top of section plus nav */
   }
+  
+  .page-hero p {
+    font-size: var(--font-size-xl);
+    padding: var(--space-3) 0;
+  }
+  
+  .page-hero p::before {
+    width: 40px;
+  }
+  
+  .page-hero p::after {
+    width: 30px;
+  }
 }
 @media (max-width: 480px) {
   .page-hero {
     padding: calc(80px + var(--space-10)) 0 var(--space-8); /* tighter on small phones */
+  }
+  
+  .page-hero p {
+    font-size: var(--font-size-lg);
+    padding: var(--space-2) 0;
+  }
+  
+  .page-hero p::before {
+    width: 30px;
+  }
+  
+  .page-hero p::after {
+    width: 20px;
   }
 }
 
