@@ -207,9 +207,12 @@ function initializeAccessibility() {
 // Lazy loading for images
 function initializeLazyLoading() {
     if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
+        const images = document.querySelectorAll('img[data-src]');
         images.forEach(img => {
-            img.src = img.dataset.src;
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
         });
     }
 }
