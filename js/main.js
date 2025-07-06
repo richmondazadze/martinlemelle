@@ -1,340 +1,200 @@
-
 // Main JavaScript functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
     initializeNavigation();
-    initializePageSystem();
     initializeScrollAnimations();
     initializeContactForm();
     initializeAccessibility();
-    
-    // Add loading complete class
-    document.body.classList.add('page-load-animation');
+    initializeLazyLoading();
 });
-
-// Page Navigation System
-function initializePageSystem() {
-    // Show home page by default
-    showPage('home');
-    
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', function(e) {
-        if (e.state && e.state.page) {
-            showPage(e.state.page, false);
-        }
-    });
-    
-    // Set initial state
-    history.replaceState({page: 'home'}, '', '#home');
-}
-
-// Show specific page
-window.showPage = function(pageId, addToHistory = true) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Show target page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
-        
-        // Update navigation
-        updateNavigation(pageId);
-        
-        // Add to browser history
-        if (addToHistory) {
-            history.pushState({page: pageId}, '', `#${pageId}`);
-        }
-        
-        // Scroll to top
-        window.scrollTo(0, 0);
-        
-        // Trigger animations for the new page
-        setTimeout(() => {
-            const elements = targetPage.querySelectorAll('.animate-on-scroll');
-            elements.forEach((element, index) => {
-                setTimeout(() => {
-                    element.classList.add('animate-in');
-                }, index * 100);
-            });
-        }, 100);
-    }
-};
-
-// Update active navigation
-function updateNavigation(activePageId) {
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-page') === activePageId) {
-            link.classList.add('active');
-        }
-    });
-}
 
 // Navigation functionality
 function initializeNavigation() {
-    const nav = document.getElementById('navbar');
+    const nav = document.querySelector('.nav');
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Handle scroll effects
+
+    // Handle scroll behavior
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
+        if (window.scrollY > 100) {
+            nav.classList.add('nav-scrolled');
         } else {
-            nav.classList.remove('scrolled');
+            nav.classList.remove('nav-scrolled');
         }
     });
-    
+
     // Mobile menu toggle
     navToggle.addEventListener('click', function() {
-        navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
-        
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
+        navToggle.classList.toggle('active');
+        navToggle.setAttribute('aria-expanded', 
+            navToggle.classList.contains('active').toString());
     });
-    
-    // Handle navigation clicks
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pageId = this.getAttribute('data-page');
-            if (pageId) {
-                showPage(pageId);
-            }
-            
-            // Close mobile menu
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    });
-    
+
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!nav.contains(e.target) && navMenu.classList.contains('active')) {
-            navToggle.classList.remove('active');
             navMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
         }
     });
 }
 
 // Scroll animations
 function initializeScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                
-                // Trigger counter animations
-                if (entry.target.classList.contains('stat-number')) {
-                    animateCounter(entry.target);
-                }
+                entry.target.classList.add('animated');
             }
         });
-    }, observerOptions);
-    
-    // Observe all animation elements
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        observer.observe(el);
+    }, {
+        threshold: 0.1
+    });
+
+    animatedElements.forEach(element => {
+        observer.observe(element);
     });
 }
 
-// Counter animation
-function animateCounter(element) {
-    const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
-    const suffix = element.textContent.replace(/[0-9]/g, '');
-    let current = 0;
-    const increment = target / 50;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            current = target;
-            clearInterval(timer);
-        }
-        element.textContent = Math.floor(current) + suffix;
-    }, 30);
+// Scroll to section function
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 // Contact form functionality
 function initializeContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
-    
-    // Form validation
-    const validators = {
-        firstName: (value) => value.trim().length >= 2,
-        lastName: (value) => value.trim().length >= 2,
-        email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-        message: (value) => value.trim().length >= 10,
-        subject: (value) => value.trim().length > 0
+
+    const fields = {
+        firstName: { required: true, minLength: 2 },
+        lastName: { required: true, minLength: 2 },
+        email: { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+        subject: { required: true, minLength: 5 },
+        message: { required: true, minLength: 20 }
     };
-    
+
     function validateField(fieldName, value) {
-        const validator = validators[fieldName];
-        return validator ? validator(value) : true;
+        const rules = fields[fieldName];
+        if (!rules) return true;
+        if (rules.required && !value) return false;
+        if (rules.minLength && value.length < rules.minLength) return false;
+        if (rules.pattern && !rules.pattern.test(value)) return false;
+        return true;
     }
-    
+
     function showError(fieldName, message) {
-        const errorElement = document.getElementById(`${fieldName}-error`);
-        if (errorElement) {
-            errorElement.textContent = message;
-            errorElement.classList.add('show');
+        const field = form.querySelector(`[name="${fieldName}"]`);
+        const errorDiv = field.parentElement.querySelector('.error-message') || 
+            document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        if (!field.parentElement.querySelector('.error-message')) {
+            field.parentElement.appendChild(errorDiv);
         }
     }
-    
+
     function hideError(fieldName) {
-        const errorElement = document.getElementById(`${fieldName}-error`);
-        if (errorElement) {
-            errorElement.classList.remove('show');
+        const field = form.querySelector(`[name="${fieldName}"]`);
+        const errorDiv = field.parentElement.querySelector('.error-message');
+        if (errorDiv) {
+            errorDiv.remove();
         }
     }
-    
-    // Real-time validation
-    const formFields = form.querySelectorAll('input, textarea, select');
-    formFields.forEach(field => {
+
+    // Validate on blur
+    Object.keys(fields).forEach(fieldName => {
+        const field = form.querySelector(`[name="${fieldName}"]`);
+        if (!field) return;
+
         field.addEventListener('blur', function() {
-            const isValid = validateField(this.name, this.value);
-            if (!isValid) {
-                const errorMessages = {
-                    firstName: 'Please enter your first name (at least 2 characters)',
-                    lastName: 'Please enter your last name (at least 2 characters)',
-                    email: 'Please enter a valid email address',
-                    message: 'Please enter a message (at least 10 characters)',
-                    subject: 'Please select a subject'
-                };
-                showError(this.name, errorMessages[this.name]);
+            const value = this.value.trim();
+            if (!validateField(fieldName, value)) {
+                showError(fieldName, `Please enter a valid ${fieldName.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
             } else {
-                hideError(this.name);
+                hideError(fieldName);
             }
         });
-        
+
+        // Clear error on input
         field.addEventListener('input', function() {
-            if (this.classList.contains('error')) {
-                hideError(this.name);
-                this.classList.remove('error');
-            }
+            hideError(fieldName);
         });
     });
-    
+
     // Form submission
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Validate all required fields
         let isValid = true;
-        const requiredFields = form.querySelectorAll('input[required], textarea[required], select[required]');
-        
-        requiredFields.forEach(field => {
-            if (!validateField(field.name, field.value)) {
+
+        // Validate all fields
+        Object.keys(fields).forEach(fieldName => {
+            const field = form.querySelector(`[name="${fieldName}"]`);
+            if (!field) return;
+
+            const value = field.value.trim();
+            if (!validateField(fieldName, value)) {
                 isValid = false;
-                field.classList.add('error');
-                showError(field.name, 'This field is required');
+                showError(fieldName, `Please enter a valid ${fieldName.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+            } else {
+                hideError(fieldName);
             }
         });
-        
+
         if (isValid) {
-            // Show loading state
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
-            submitButton.disabled = true;
-            form.classList.add('loading');
-            
-            // Simulate form submission
-            setTimeout(() => {
-                showSuccessModal();
-                form.reset();
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-                form.classList.remove('loading');
-            }, 2000);
+            // Here you would typically send the form data to a server
+            // For now, we'll just show a success message
+            showSuccessModal();
+            form.reset();
         }
     });
 }
-
-// Smooth scrolling to sections within pages
-window.scrollToSection = function(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        const offsetTop = section.offsetTop - 100; // Account for fixed header
-        window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-        });
-    }
-};
 
 // Modal functionality
 function showSuccessModal() {
-    const modal = document.getElementById('success-modal');
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>Message Sent!</h3>
+            <p>Thank you for your message. We'll get back to you soon.</p>
+            <button onclick="closeModal()" class="btn-primary">Close</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('active'), 10);
+}
+
+function closeModal() {
+    const modal = document.querySelector('.modal');
     if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Auto-close after 5 seconds
-        setTimeout(() => {
-            closeModal();
-        }, 5000);
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
     }
 }
 
-window.closeModal = function() {
-    const modal = document.getElementById('success-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-};
-
 // Accessibility enhancements
 function initializeAccessibility() {
-    // Keyboard navigation
+    // Keyboard navigation for mobile menu
     document.addEventListener('keydown', function(e) {
-        // Close modal on Escape
         if (e.key === 'Escape') {
-            closeModal();
-            
-            // Close mobile menu
-            const navToggle = document.getElementById('nav-toggle');
             const navMenu = document.getElementById('nav-menu');
+            const navToggle = document.getElementById('nav-toggle');
             if (navMenu.classList.contains('active')) {
-                navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        // Navigate between pages with arrow keys (when not in form)
-        if (!e.target.matches('input, textarea, select')) {
-            const pages = ['home', 'about', 'leadership', 'contact'];
-            const currentPage = document.querySelector('.page.active').id;
-            const currentIndex = pages.indexOf(currentPage);
-            
-            if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
-                showPage(pages[currentIndex + 1]);
-            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                showPage(pages[currentIndex - 1]);
+                navToggle.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
         }
     });
-    
-    // Focus management for mobile menu
+
+    // Make navigation toggle keyboard accessible
     const navToggle = document.getElementById('nav-toggle');
     navToggle.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -342,88 +202,24 @@ function initializeAccessibility() {
             this.click();
         }
     });
-    
-    // Announce page changes to screen readers
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => {
-        page.setAttribute('aria-live', 'polite');
-    });
-    
-    // Add skip navigation for pages
-    const skipLinks = document.querySelectorAll('a[href^="#"]');
-    skipLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                targetElement.focus();
-            }
+}
+
+// Lazy loading for images
+function initializeLazyLoading() {
+    if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.src = img.dataset.src;
         });
-    });
+    }
 }
-
-// Utility functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Performance optimization
-window.addEventListener('scroll', debounce(function() {
-    // Throttled scroll events - hero image is now fixed
-    const scrollY = window.scrollY;
-    
-    // Add any other scroll-based animations here
-}, 16)); // ~60fps
 
 // Error handling
 window.addEventListener('error', function(e) {
-    console.error('JavaScript Error:', e.error);
-    // Could send to error reporting service in production
+    console.error('JavaScript Error:', e.message);
 });
-
-// Initialize lazy loading for images
-function initializeLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
 
 // Initialize on load
 window.addEventListener('load', function() {
-    initializeLazyLoading();
+    document.body.classList.add('loaded');
 });
-
-// Service worker registration (if needed)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered: ', registration);
-            })
-            .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
-}
-
-// Export functions for global use
-window.initializePageSystem = initializePageSystem;
-window.updateNavigation = updateNavigation;
