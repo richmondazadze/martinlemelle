@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Updated list of wide images - only specific images should be wide on mobile
     const wideImages = [
       'martin_and_tiger.jpeg',  // wide in events
-      'martin_congress.jpeg',   // wide in events
+      'martin_arrival.jpeg',    // wide in events
       'martin_and_sons.jpg',    // wide in other images (for All Photos)
       'martin_with_men.jpg',    // wide in other images (for All Photos)
       'how_it_started.jpeg'     // wide in other images (for All Photos)
