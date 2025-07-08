@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery - Dr. Martin Lemelle, Jr.</title>
-  <meta name="description" content="Photo gallery of Dr. Martin Lemelle, Jr. - President of Grambling State University.">
-  <meta name="keywords" content="Martin Lemelle, Gallery, Photos, Grambling State University, President">
+  <meta name="description" content="Photo gallery of Dr. Martin Lemelle, Jr. - Youngest HBCU President of Grambling State University.">
+  <meta name="keywords" content="Martin Lemelle, Gallery, Photos, Grambling State University, President, HBCU">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -16,7 +16,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/favicon-48x48.png">
   <link rel="manifest" href="../manifest.json">
-  <link rel="preload" as="image" href="../assets/gallery/martin_gram_suite_turtle_neck.jpeg">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -48,33 +47,53 @@
         </div>
       </div>
     </section>
+    
+    <!-- Gallery Categories -->
     <section class="gallery-section">
       <div class="container">
-        <div class="gallery-loading" id="gallery-loading">Preparing gallery...</div>
+        <div class="gallery-tabs">
+          <button class="tab-button active" data-category="all">
+            <i class="fas fa-images"></i>
+            <span>All Photos</span>
+          </button>
+          <button class="tab-button" data-category="events">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Events</span>
+          </button>
+          <button class="tab-button" data-category="lifestyle">
+            <i class="fas fa-heart"></i>
+            <span>Lifestyle</span>
+          </button>
+        </div>
+        
+        <!-- Gallery Grid -->
         <div class="gallery-grid" id="gallery-grid">
-          <img data-src="../assets/gallery/martin_gram_suite_turtle_neck.jpeg" alt="Dr. Martin Lemelle in Grambling suite" loading="eager">
-          <img data-src="../assets/gallery/martin_89.jpg" alt="Dr. Martin Lemelle 1989" loading="lazy">
-          <img data-src="../assets/gallery/martin_and_sons.jpg" alt="Dr. Martin Lemelle and sons" loading="lazy">
-          <img data-src="../assets/gallery/martin_black_bg.jpg" alt="Dr. Martin Lemelle professional portrait" loading="lazy">
-          <img data-src="../assets/gallery/martin_congress.jpeg" alt="Dr. Martin Lemelle at Congress" loading="lazy">
-          <img data-src="../assets/gallery/martin_and_tiger.jpeg" alt="Dr. Martin Lemelle with Grambling State University tiger mascot" loading="lazy">
-          <img data-src="../assets/gallery/martin_formal.png" alt="Dr. Martin Lemelle formal portrait" loading="lazy">
-          <img data-src="../assets/gallery/martin_in_studio.jpg" alt="Dr. Martin Lemelle in studio" loading="lazy">
-          <img data-src="../assets/gallery/how_it_started.jpeg" alt="How it started - Dr. Martin Lemelle" loading="lazy">
-          <img data-src="../assets/gallery/martin_gram_suit.jpeg" alt="Dr. Martin Lemelle in Grambling suit" loading="lazy">
-          <img data-src="../assets/gallery/martin_on_the_mic.jpeg" alt="Dr. Martin Lemelle speaking" loading="lazy">
-          <img data-src="../assets/gallery/martin_arrival.jpeg" alt="Dr. Martin Lemelle arrival" loading="lazy">
+          <!-- Images will be loaded dynamically -->
         </div>
       </div>
     </section>
   </main>
+  
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <button class="lightbox-prev" id="lightbox-prev">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="lightbox-next" id="lightbox-next">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+  
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
           <div class="footer-logo">
             <img src="../assets/martin-lemelle-logo.webp" alt="Dr. Martin Lemelle Logo" class="footer-logo-img">
-            <p>11th President<br>Grambling State University</p>
+            <p>Youngest HBCU President<br>11th President, Grambling State University</p>
           </div>
           <div class="footer-social">
             <a href="https://www.facebook.com/martinlemelleforcongress" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
@@ -116,6 +135,8 @@
       </div>
     </div>
   </footer>
+  
   <script src="../js/main.js"></script>
+  <script src="../js/gallery.js"></script>
 </body>
 </html> 
