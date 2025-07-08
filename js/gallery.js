@@ -1,38 +1,42 @@
 // Gallery JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-  // Gallery data with updated categories (lifestyle: only camel, tower, telephone, recording_studio, lake)
+  // Gallery data with updated categories
   const galleryData = [
+    // Lifestyle images
     { src: '../assets/gallery/martin_camel_photo.jpg', alt: 'Dr. Martin Lemelle camel photo', category: 'lifestyle' },
     { src: '../assets/gallery/martin_tower.jpg', alt: 'Dr. Martin Lemelle at tower', category: 'lifestyle' },
     { src: '../assets/gallery/martin_telephone.jpg', alt: 'Dr. Martin Lemelle on telephone', category: 'lifestyle' },
     { src: '../assets/gallery/martin_recording_studio.jpg', alt: 'Dr. Martin Lemelle in recording studio', category: 'lifestyle' },
     { src: '../assets/gallery/martin_lake.jpg', alt: 'Dr. Martin Lemelle at lake', category: 'lifestyle' },
     { src: '../assets/gallery/martin_89.jpg', alt: 'Dr. Martin Lemelle 1989', category: 'lifestyle' },
-    // All other images are events
-    { src: '../assets/gallery/martin_gram_suite_turtle_neck.jpeg', alt: 'Dr. Martin Lemelle in Grambling suite', category: 'events' },
-    { src: '../assets/gallery/martin_and_sons.jpg', alt: 'Dr. Martin Lemelle and sons', category: 'events' },
-    { src: '../assets/gallery/martin_black_bg.jpg', alt: 'Dr. Martin Lemelle professional portrait', category: 'events' },
-    { src: '../assets/gallery/martin_congress.jpeg', alt: 'Dr. Martin Lemelle at Congress', category: 'events' },
+    
+    // Events images (specific list provided by user)
     { src: '../assets/gallery/martin_and_tiger.jpeg', alt: 'Dr. Martin Lemelle with Grambling State University tiger mascot', category: 'events' },
-    { src: '../assets/gallery/martin_formal.png', alt: 'Dr. Martin Lemelle formal portrait', category: 'events' },
-    { src: '../assets/gallery/martin_in_studio.jpg', alt: 'Dr. Martin Lemelle in studio', category: 'events' },
-    { src: '../assets/gallery/how_it_started.jpeg', alt: 'How it started - Dr. Martin Lemelle', category: 'events' },
-    { src: '../assets/gallery/martin_gram_suit.jpeg', alt: 'Dr. Martin Lemelle in Grambling suit', category: 'events' },
-    { src: '../assets/gallery/martin_on_the_mic.jpeg', alt: 'Dr. Martin Lemelle speaking', category: 'events' },
     { src: '../assets/gallery/martin_arrival.jpeg', alt: 'Dr. Martin Lemelle arrival', category: 'events' },
-    { src: '../assets/gallery/martin_with_men.jpg', alt: 'Dr. Martin Lemelle with colleagues', category: 'events' },
-    { src: '../assets/gallery/martin_with_cau.jpg', alt: 'Dr. Martin Lemelle at CAU', category: 'events' },
-    { src: '../assets/gallery/martin_tiger_suit.jpg', alt: 'Dr. Martin Lemelle in tiger suit', category: 'events' },
-    { src: '../assets/gallery/martin_students_in_studio.jpg', alt: 'Dr. Martin Lemelle with students in studio', category: 'events' },
-    { src: '../assets/gallery/martin_speech.jpg', alt: 'Dr. Martin Lemelle giving speech', category: 'events' },
-    { src: '../assets/gallery/martin_orange_bg.jpg', alt: 'Dr. Martin Lemelle with orange background', category: 'events' },
-    { src: '../assets/gallery/martin_on_stage.jpg', alt: 'Dr. Martin Lemelle on stage', category: 'events' },
-    { src: '../assets/gallery/martin_honoree.jpg', alt: 'Dr. Martin Lemelle as honoree', category: 'events' },
-    { src: '../assets/gallery/martin_gsu_sweats.jpg', alt: 'Dr. Martin Lemelle in GSU sweats', category: 'events' },
-    { src: '../assets/gallery/martin_conference_table.jpg', alt: 'Dr. Martin Lemelle at conference table', category: 'events' },
+    { src: '../assets/gallery/martin_black_student_photo.jpg', alt: 'Dr. Martin Lemelle with black student', category: 'events' },
     { src: '../assets/gallery/martin_book_launch.jpg', alt: 'Dr. Martin Lemelle book launch', category: 'events' },
-    { src: '../assets/gallery/martin_black_sweat.jpg', alt: 'Dr. Martin Lemelle in black sweats', category: 'events' },
-    { src: '../assets/gallery/martin_black_student_photo.jpg', alt: 'Dr. Martin Lemelle with black student', category: 'events' }
+    { src: '../assets/gallery/martin_congress.jpeg', alt: 'Dr. Martin Lemelle at Congress', category: 'events' },
+    { src: '../assets/gallery/martin_gsu_sweats.jpg', alt: 'Dr. Martin Lemelle in GSU sweats', category: 'events' },
+    { src: '../assets/gallery/martin_honoree.jpg', alt: 'Dr. Martin Lemelle as honoree', category: 'events' },
+    { src: '../assets/gallery/martin_on_stage.jpg', alt: 'Dr. Martin Lemelle on stage', category: 'events' },
+    { src: '../assets/gallery/martin_speech.jpg', alt: 'Dr. Martin Lemelle giving speech', category: 'events' },
+    
+    // All other images (not in Events or Lifestyle) - available for All Photos only
+    { src: '../assets/gallery/martin_gram_suite_turtle_neck.jpeg', alt: 'Dr. Martin Lemelle in Grambling suite', category: 'other' },
+    { src: '../assets/gallery/martin_and_sons.jpg', alt: 'Dr. Martin Lemelle and sons', category: 'other' },
+    { src: '../assets/gallery/martin_black_bg.jpg', alt: 'Dr. Martin Lemelle professional portrait', category: 'other' },
+    { src: '../assets/gallery/martin_formal.png', alt: 'Dr. Martin Lemelle formal portrait', category: 'other' },
+    { src: '../assets/gallery/martin_in_studio.jpg', alt: 'Dr. Martin Lemelle in studio', category: 'other' },
+    { src: '../assets/gallery/how_it_started.jpeg', alt: 'How it started - Dr. Martin Lemelle', category: 'other' },
+    { src: '../assets/gallery/martin_gram_suit.jpeg', alt: 'Dr. Martin Lemelle in Grambling suit', category: 'other' },
+    { src: '../assets/gallery/martin_on_the_mic.jpeg', alt: 'Dr. Martin Lemelle speaking', category: 'other' },
+    { src: '../assets/gallery/martin_with_men.jpg', alt: 'Dr. Martin Lemelle with colleagues', category: 'other' },
+    { src: '../assets/gallery/martin_with_cau.jpg', alt: 'Dr. Martin Lemelle at CAU', category: 'other' },
+    { src: '../assets/gallery/martin_tiger_suit.jpg', alt: 'Dr. Martin Lemelle in tiger suit', category: 'other' },
+    { src: '../assets/gallery/martin_students_in_studio.jpg', alt: 'Dr. Martin Lemelle with students in studio', category: 'other' },
+    { src: '../assets/gallery/martin_orange_bg.jpg', alt: 'Dr. Martin Lemelle with orange background', category: 'other' },
+    { src: '../assets/gallery/martin_conference_table.jpg', alt: 'Dr. Martin Lemelle at conference table', category: 'other' },
+    { src: '../assets/gallery/martin_black_sweat.jpg', alt: 'Dr. Martin Lemelle in black sweats', category: 'other' }
   ];
 
   // Render all images once
@@ -104,13 +108,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const items = galleryGrid.querySelectorAll('.img-wrapper');
     items.forEach((item, i) => {
       let img = item.querySelector('img');
+      const imgCategory = img.getAttribute('data-category');
+      
       if (category === 'all') {
+        // Show all images for All Photos tab
         item.style.display = 'block';
-      } else if (img.getAttribute('data-category') === category) {
+      } else if (imgCategory === category) {
+        // Show only images matching the selected category
         item.style.display = 'block';
       } else {
         item.style.display = 'none';
       }
+      
       if (item.style.display === 'block') visible.push(item);
     });
     
@@ -127,14 +136,13 @@ document.addEventListener('DOMContentLoaded', function() {
       img.classList.remove('normal', 'wide', 'tall');
     });
     
-    // List of wide images (filenames only)
+    // Updated list of wide images - only specific images should be wide on mobile
     const wideImages = [
-      'martin_and_sons.jpg',
-      'martin_with_men.jpg',
-      'martin_book_launch.jpg',
-      'martin_arrival.jpeg',
-      'martin_honoree.jpg',
-      'how_it_started.jpeg'
+      'martin_and_tiger.jpeg',  // wide in events
+      'martin_congress.jpeg',   // wide in events
+      'martin_and_sons.jpg',    // wide in other images (for All Photos)
+      'martin_with_men.jpg',    // wide in other images (for All Photos)
+      'how_it_started.jpeg'     // wide in other images (for All Photos)
     ];
     
     if (category === 'lifestyle') {
@@ -201,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     lightboxImg.src = imageData.src;
     lightboxImg.alt = imageData.alt;
     lightboxCaption.textContent = imageData.alt;
-  }
+}
 
   function showPrevImage() {
     if (currentImages.length === 0) return;
